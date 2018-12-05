@@ -240,6 +240,7 @@ set(REPORTER_HEADERS
         ${HEADER_DIR}/reporters/catch_reporter_console.h
         ${HEADER_DIR}/reporters/catch_reporter_junit.h
         ${HEADER_DIR}/reporters/catch_reporter_listening.h
+        ${HEADER_DIR}/reporters/catch_reporter_sonarqube.hpp
         ${HEADER_DIR}/reporters/catch_reporter_tap.hpp
         ${HEADER_DIR}/reporters/catch_reporter_teamcity.hpp
         ${HEADER_DIR}/reporters/catch_reporter_xml.h
