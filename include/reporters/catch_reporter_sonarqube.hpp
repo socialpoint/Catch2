@@ -89,7 +89,7 @@ namespace Catch {
             if( !sectionNode.assertions.empty() || !sectionNode.stdOut.empty() || !sectionNode.stdErr.empty() ) {
                 XmlWriter::ScopedElement e = xml.scopedElement( "testCase" );
                 xml.writeAttribute( "name", name );
-                xml.writeAttribute( "duration", ::Catch::Detail::stringify( static_cast<long>(sectionNode.stats.durationInSeconds * 1000 )) );
+                xml.writeAttribute( "duration", static_cast<long>( sectionNode.stats.durationInSeconds * 1000 ) );
                 
                 writeAssertions( sectionNode, okToFail );
             }
