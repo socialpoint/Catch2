@@ -1,6 +1,6 @@
 /*
  *  Catch v2.5.0
- *  Generated: 2018-12-20 12:19:56.551008
+ *  Generated: 2018-12-20 12:25:58.103107
  *  ----------------------------------------------------------
  *  This file has been merged from multiple headers. Please don't edit it directly
  *  Copyright (c) 2018 Two Blue Cubes Ltd. All rights reserved.
@@ -2661,6 +2661,10 @@ namespace Matchers {
         template<typename ObjectT>
         struct MatcherMethod {
             virtual bool match( ObjectT const& arg ) const = 0;
+        };
+        template<typename PtrT>
+        struct MatcherMethod<PtrT*> {
+            virtual bool match( PtrT* arg ) const = 0;
         };
 
 #ifdef __clang__
