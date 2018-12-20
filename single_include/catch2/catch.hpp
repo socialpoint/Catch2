@@ -1,6 +1,6 @@
 /*
  *  Catch v2.5.0
- *  Generated: 2018-11-26 20:46:12.165372
+ *  Generated: 2018-12-20 12:19:56.551008
  *  ----------------------------------------------------------
  *  This file has been merged from multiple headers. Please don't edit it directly
  *  Copyright (c) 2018 Two Blue Cubes Ltd. All rights reserved.
@@ -377,6 +377,10 @@ namespace Catch {
 #include <string>
 #include <cstdint>
 
+#if defined(CATCH_PLATFORM_WINDOWS)
+#include <windows.h>
+#endif
+
 // We need a dummy global operator<< so we can bring it into Catch namespace later
 struct Catch_global_namespace_dummy {};
 std::ostream& operator<<(std::ostream&, Catch_global_namespace_dummy);
@@ -405,7 +409,18 @@ namespace Catch {
         SourceLineInfo( char const* _file, std::size_t _line ) noexcept
         :   file( _file ),
             line( _line )
-        {}
+        {
+#if defined(CATCH_PLATFORM_WINDOWS)
+            int shortPathBufferSize = GetShortPathNameA(file, NULL, 0);
+            char* shortPathBuffer = new char[shortPathBufferSize];
+            GetShortPathNameA(file, shortPathBuffer, shortPathBufferSize);
+            int longPathBufferSize = GetLongPathNameA(shortPathBuffer, NULL, 0);
+            char* longPathBuffer = new char[longPathBufferSize];
+            GetLongPathNameA(shortPathBuffer, longPathBuffer, longPathBufferSize);
+            delete [] shortPathBuffer;
+            file = longPathBuffer;
+#endif
+        }
 
         SourceLineInfo( SourceLineInfo const& other )        = default;
         SourceLineInfo( SourceLineInfo && )                  = default;
