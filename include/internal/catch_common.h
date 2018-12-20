@@ -22,6 +22,10 @@
 #include <string>
 #include <cstdint>
 
+#if defined(CATCH_PLATFORM_WINDOWS)
+#include <windows.h>
+#endif
+
 // We need a dummy global operator<< so we can bring it into Catch namespace later
 struct Catch_global_namespace_dummy {};
 std::ostream& operator<<(std::ostream&, Catch_global_namespace_dummy);
@@ -50,7 +54,18 @@ namespace Catch {
         SourceLineInfo( char const* _file, std::size_t _line ) noexcept
         :   file( _file ),
             line( _line )
-        {}
+        {
+#if defined(CATCH_PLATFORM_WINDOWS)
+            int shortPathBufferSize = GetShortPathNameA(file, NULL, 0);
+            char* shortPathBuffer = new char[shortPathBufferSize];
+            GetShortPathNameA(file, shortPathBuffer, shortPathBufferSize);
+            int longPathBufferSize = GetLongPathNameA(shortPathBuffer, NULL, 0);
+            char* longPathBuffer = new char[longPathBufferSize];
+            GetLongPathNameA(shortPathBuffer, longPathBuffer, longPathBufferSize);
+            delete [] shortPathBuffer;
+            file = longPathBuffer;
+#endif
+        }
 
         SourceLineInfo( SourceLineInfo const& other )        = default;
         SourceLineInfo( SourceLineInfo && )                  = default;
