@@ -57,12 +57,12 @@ namespace Catch {
         }
         
         void writeGroup( TestGroupNode const& groupNode ) {
-            std::map<const char*, TestGroupNode::ChildNodes> testsPerFile;
+            std::map<std::string, TestGroupNode::ChildNodes> testsPerFile;
             for( auto const& child : groupNode.children )
                 testsPerFile[child->value.testInfo.lineInfo.file].push_back( child );
             
             for( auto const& kv : testsPerFile )
-                writeTestFile( kv.first, kv.second );
+                writeTestFile( kv.first.c_str(), kv.second );
         }
         
         void writeTestFile ( const char* filename, TestGroupNode::ChildNodes const& testCaseNodes ) {
