@@ -23,6 +23,7 @@
 #include <cstdint>
 
 #if defined(CATCH_PLATFORM_WINDOWS)
+#include <winsock2.h>
 #include <windows.h>
 #endif
 

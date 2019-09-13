@@ -1,9 +1,9 @@
 /*
  *  Catch v2.5.0
- *  Generated: 2018-12-20 12:25:58.103107
+ *  Generated: 2019-09-13 13:34:03.542394
  *  ----------------------------------------------------------
  *  This file has been merged from multiple headers. Please don't edit it directly
- *  Copyright (c) 2018 Two Blue Cubes Ltd. All rights reserved.
+ *  Copyright (c) 2019 Two Blue Cubes Ltd. All rights reserved.
  *
  *  Distributed under the Boost Software License, Version 1.0. (See accompanying
  *  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -378,6 +378,7 @@ namespace Catch {
 #include <cstdint>
 
 #if defined(CATCH_PLATFORM_WINDOWS)
+#include <winsock2.h>
 #include <windows.h>
 #endif
 
